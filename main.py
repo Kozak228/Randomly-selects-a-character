@@ -1,23 +1,10 @@
-from random import randint, choice
-from sys import exit
-from os import system
+from Parser_data import Parser_data
 
 def main():
-    list_elements = ["Пиро", "Гидро", "Анемо", "Электро", "Дендро", "Крио", "Гео"]
+    pars_data = Parser_data('https://paimon.moe/characters')
 
-    while True:
-        system("cls || clear")
+    pars_data.pars_data()
 
-        print(f"Элемент: {choice(list_elements)}\n")
-
-        last_chislo = int(input("Введите количество персонажев элемента -> "))
-
-        print(f"Персонаж под номером: {randint(1, last_chislo)}\n")
-
-        question = input("Для продолжения, введите - '1';\nДля выхода - '0';\nВаш выбор -> ")
-
-        if question == "0":
-            exit()
 
 if __name__ == "__main__":
     main()

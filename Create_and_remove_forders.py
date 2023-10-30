@@ -33,17 +33,3 @@ def remove_dir(path_dir):
         rmtree(path_dir[:-1])
     except OSError as e:
         print(f'Error: {e}')
-
-# def main():
-#     path_main_dir = proverka_or_create_dir()
-#     print(f'main: {path_main_dir}')
-    # path_secondary_dir = proverka_or_create_dir(path_main_dir, 'pyro',"")
-    # print(f'path_secondary_dir: {path_secondary_dir}')
-    # path_secondary_dir = proverka_or_create_dir(path_main_dir, 'crio',"")
-    # print(f'path_secondary_dir: {path_secondary_dir}')
-    # path_secondary_dir = proverka_or_create_dir(path_main_dir, 'geo',"")
-    # print(f'path_secondary_dir: {path_secondary_dir}')
-    # remove_dir(path_main_dir)
-
-# if __name__ == '__main__':
-#     main()
