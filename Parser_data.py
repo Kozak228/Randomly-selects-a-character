@@ -6,12 +6,12 @@ from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 from requests import get
 
-from Create_and_remove_forders import proverka_or_create_dir
+from Create_and_remove_forders import proverka_or_create_dir_data
 
 class Parser_data():
     def __init__(self, url):
         self.url = url
-        self.path_main_dir = proverka_or_create_dir()
+        self.path_main_dir = proverka_or_create_dir_data()
 
         self.browser = webdriver.Chrome()
 
@@ -27,7 +27,7 @@ class Parser_data():
             list_links_on_img_element = ['https://paimon.moe' + i.get('src') for i in list_img_tags_element[:7]]
             list_names_element = [i.get('alt') for i in list_img_tags_element[:7]]
 
-            path_secondary_dir = proverka_or_create_dir(self.path_main_dir, 'element',"")
+            path_secondary_dir = proverka_or_create_dir_data(self.path_main_dir, 'element',"")
 
             self.download_image(path_secondary_dir, list_links_on_img_element)
 
@@ -45,7 +45,7 @@ class Parser_data():
 
                 list_links_on_img_characters = ['https://paimon.moe' + i.get('src') for i in list_img_tag_characters]
 
-                path_secondary_dir = proverka_or_create_dir(self.path_main_dir, list_names_element[characters_with_elem], "")
+                path_secondary_dir = proverka_or_create_dir_data(self.path_main_dir, list_names_element[characters_with_elem], "")
 
                 self.download_image(path_secondary_dir, list_links_on_img_characters)
 
