@@ -17,7 +17,6 @@ class Parser_data():
 
     def pars_data(self):
         try:
-
             self.browser.get(self.url)
             sleep(randrange(9))
 
@@ -50,12 +49,12 @@ class Parser_data():
 
                 self.download_image(path_secondary_dir, list_links_on_img_characters)
 
-                sleep(5)
+                sleep(3)
 
                 self.browser.find_element(By.XPATH,
                                      f"// *[ @ id = 'sapper'] / main / div / div[2] / div[1] / div[1] / div[2] / div[1] / button[{characters_with_elem + 1}]").click()
 
-                sleep(5)
+                sleep(1)
 
         except Exception as ex:
             print(ex)
@@ -64,8 +63,6 @@ class Parser_data():
             self.browser.quit()
 
     def download_image(self, path_dir, links):
-        print('\n')
-
         cnt_links = len(links)
         cnt_link = 0
 
