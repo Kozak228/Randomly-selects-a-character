@@ -8,7 +8,6 @@ from bs4 import BeautifulSoup
 from Create_and_remove_forders import proverka_or_create_dir_data
 from Write_file import write_file
 
-
 class Parser_data():
     def __init__(self, url):
         self.url = url
