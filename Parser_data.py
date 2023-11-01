@@ -4,13 +4,18 @@ from random import randrange
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
-from requests import get
 
 from Create_and_remove_forders import proverka_or_create_dir_data
+from Write_file import write_file
+
 
 class Parser_data():
     def __init__(self, url):
         self.url = url
+
+        self.name_file = 'data'
+        self.dict_all_links_data = {}
+
         self.path_main_dir = proverka_or_create_dir_data()
 
         self.browser = webdriver.Chrome()
@@ -27,9 +32,8 @@ class Parser_data():
             list_links_on_img_element = ['https://paimon.moe' + i.get('src') for i in list_img_tags_element[:7]]
             list_names_element = [i.get('alt') for i in list_img_tags_element[:7]]
 
-            path_secondary_dir = proverka_or_create_dir_data(self.path_main_dir, 'element',"")
-
-            self.download_image(path_secondary_dir, list_links_on_img_element)
+            self.dict_all_links_data['names_element'] = list_names_element
+            self.dict_all_links_data['links_on_img_element'] = list_links_on_img_element
 
             sleep(2)
 
@@ -45,9 +49,7 @@ class Parser_data():
 
                 list_links_on_img_characters = ['https://paimon.moe' + i.get('src') for i in list_img_tag_characters]
 
-                path_secondary_dir = proverka_or_create_dir_data(self.path_main_dir, list_names_element[characters_with_elem], "")
-
-                self.download_image(path_secondary_dir, list_links_on_img_characters)
+                self.dict_all_links_data[list_names_element[characters_with_elem]] = list_links_on_img_characters
 
                 sleep(3)
 
@@ -56,24 +58,10 @@ class Parser_data():
 
                 sleep(1)
 
+            write_file(self.dict_all_links_data, self.name_file, self.path_main_dir)
+
         except Exception as ex:
             print(ex)
         finally:
             self.browser.close()
             self.browser.quit()
-
-    def download_image(self, path_dir, links):
-        cnt_links = len(links)
-        cnt_link = 0
-
-        for i in links:
-            req = get(i)
-            response = req.content
-
-            with open(f'{path_dir}{i[i.rindex("/") + 1:]}', 'wb') as f:
-                f.write(response)
-
-            cnt_link += 1
-            print(f"Downloading: {cnt_link}/{cnt_links}")
-
-            sleep(0.2)

@@ -4,13 +4,7 @@ from PyQt6.QtWidgets import QApplication
 
 from Main_GUI import MainWindow
 
-from Parser_data import Parser_data
-
 def main():
-    # pars_data = Parser_data('https://paimon.moe/characters')
-    #
-    # pars_data.pars_data()
-
     app = QApplication(argv)
 
     appl = MainWindow()

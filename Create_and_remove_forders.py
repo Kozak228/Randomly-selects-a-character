@@ -1,5 +1,5 @@
 from os.path import abspath, exists
-from os import mkdir
+from os import mkdir, remove
 from shutil import rmtree
 
 def path_to_dir(name_dir):
@@ -51,8 +51,8 @@ def proverka_or_create_dir_data(path_main_dir ='', name_new_dir = '', select = "
 
         return path_secondary_dir
 
-def remove_dir(path_dir):
+def remove_dir_or_file(path_dir, name_file):
     try:
-        rmtree(path_dir[:-1])
+        rmtree(path_dir[:-1]) if name_file == '' else remove(f'{path_dir + name_file}.json')
     except OSError as e:
         print(f'Error: {e}')
