@@ -22,7 +22,6 @@ class Parser_and_download(QMainWindow):
 
         self.ui.pushButton_pars_and_download_data.clicked.connect(self.download_data)
 
-
     def pars_links(self):
         parser_data = Parser_data('https://paimon.moe/characters')
 

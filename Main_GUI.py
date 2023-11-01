@@ -64,7 +64,6 @@ class MainWindow(QMainWindow):
 
         self.ui.label_img_charact.setPixmap(pixmap)
 
-
     def reload_exist(self):
         self.path_pulling()
         self.exists_dir('Data')
