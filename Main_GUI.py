@@ -18,7 +18,7 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
 
         self.setWindowFlags(Qt.WindowType.BypassWindowManagerHint)
-        self.setFixedSize(355, 291)
+        self.setFixedSize(361, 299)
 
         self.setWindowIcon(QIcon(f"{proverka_path_dir_icon('img_app')}main_app.ico"))
         self.ui.pushButton_clear.setIcon(QIcon(f"{proverka_path_dir_icon('img_app')}clear.png"))
@@ -45,7 +45,6 @@ class MainWindow(QMainWindow):
 
     def return_main_with_timer_window(self):
         self.timer_window.close()
-
         self.show()
 
     def download_datas(self):
@@ -68,6 +67,10 @@ class MainWindow(QMainWindow):
         pixmap = pixmap.scaled(70, 70, Qt.AspectRatioMode.KeepAspectRatio)
 
         self.ui.label_img_element.setPixmap(pixmap)
+        self.ui.label_img_element.setStyleSheet(self.change_border_color_label_with_elem(self.random_element[:self.random_element.rindex('.')]))
+
+        self.ui.label_img_charact.clear()
+        self.ui.label_img_charact.setStyleSheet(self.change_border_color_label_with_elem(''))
 
     def btn_random_character(self):
         path_dir_element_characters = proverka_or_create_dir_data(self.path_to_data,
@@ -81,6 +84,26 @@ class MainWindow(QMainWindow):
         pixmap = QPixmap(f'{path_dir_element_characters + random_element_character}')
 
         self.ui.label_img_charact.setPixmap(pixmap)
+        self.ui.label_img_charact.setStyleSheet(self.change_border_color_label_with_elem(self.random_element[:self.random_element.rindex('.')]))
+
+    def change_border_color_label_with_elem(self, element):
+
+        if element == 'anemo':
+            return 'border: 2px solid #37dba4;'
+        elif element == 'cryo':
+            return 'border: 1px solid #65e1ea;'
+        elif element == 'dendro':
+            return 'border: 1px solid #8ac500;'
+        elif element == 'electro':
+            return 'border: 1px solid #c97bfe;'
+        elif element == 'geo':
+            return 'border: 1px solid #f8a300;'
+        elif element == 'hydro':
+            return 'border: 1px solid #08e4ff;'
+        elif element == 'pyro':
+            return 'border: 1px solid #ef5f02;'
+        else:
+            return 'border: none;'
 
     def reload_exist(self):
         self.path_pulling()
@@ -115,7 +138,9 @@ class MainWindow(QMainWindow):
 
     def btn_clear_labels(self):
         self.ui.label_img_charact.clear()
+        self.ui.label_img_charact.setStyleSheet(self.change_border_color_label_with_elem(''))
         self.ui.label_img_element.clear()
+        self.ui.label_img_element.setStyleSheet(self.change_border_color_label_with_elem(''))
 
     def btn_app_exit(self):
         self.exit_app()

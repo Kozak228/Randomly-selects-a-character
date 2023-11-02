@@ -2,6 +2,8 @@ from os.path import abspath, exists
 from os import mkdir, remove
 from shutil import rmtree
 
+from Loging_error import log_error
+
 def path_to_dir(name_dir):
     path_to_app = abspath(__name__)
 
@@ -21,11 +23,11 @@ def proverka_path_dir_icon(name_dir):
     if exists(path_icon_dir):
         path_icon_dir += '\\'
     else:
-        path_icon_dir = ''
+        path_icon_dir = path_main_dir
 
     return path_icon_dir
 
-def proverka_or_create_dir_data(path_main_dir ='', name_new_dir = '', select = "main_dir"):
+def proverka_or_create_dir_data(path_main_dir='', name_new_dir='', select="main_dir"):
     if select == 'main_dir':
         name_dir = 'Data'
         path_to_app = abspath(__name__)
@@ -54,5 +56,5 @@ def proverka_or_create_dir_data(path_main_dir ='', name_new_dir = '', select = "
 def remove_dir_or_file(path_dir, name_file):
     try:
         rmtree(path_dir[:-1]) if name_file == '' else remove(f'{path_dir + name_file}.json')
-    except OSError as e:
-        print(f'Error: {e}')
+    except OSError as ex:
+        log_error(proverka_path_dir_icon('log'), ex)

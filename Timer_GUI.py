@@ -4,6 +4,8 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtCore import QTimer
 from PyQt6.QtGui import QIcon
 
+from pyglet import media
+
 from Time_format import add_zero, m_in_s, s_in_m
 from Create_and_remove_forders import proverka_path_dir_icon
 
@@ -18,6 +20,8 @@ class Timers(QMainWindow):
 
         self.ui.pushButton_play.setIcon(QIcon(f"{proverka_path_dir_icon('img_app')}play.png"))
         self.ui.pushButton_clear.setIcon(QIcon(f"{proverka_path_dir_icon('img_app')}clear.png"))
+
+        self.audio = media.load(f"{proverka_path_dir_icon('audio')}audio.wav", streaming=False)
 
         self.ui.pushButton_clear.clicked.connect(self.reset_time)
         self.ui.pushButton_FAQ_add.clicked.connect(self.msg_FAQ_action)
@@ -68,7 +72,7 @@ class Timers(QMainWindow):
 
             self.ui.pushButton_play.setIcon(QIcon(f"{proverka_path_dir_icon('img_app')}play.png"))
 
-            self.msg('Information', 'Таймер завершив роботу.\nЧас змінювати персонажа.')
+            self.audio.play()
 
             self.ui.label_s.setStyleSheet("color: yellow;")
             self.ui.label_m.setStyleSheet("color: yellow;")
@@ -138,9 +142,9 @@ class Timers(QMainWindow):
         self.ui.label_m.setStyleSheet("color: yellow;")
 
     def msg_FAQ_action(self):
-        self.msg("Information", "Ви можете додати до (або відняти від) хвилин(и) або секунд(и)\nвідповідне значення,"
-                                " натиснувши на кнопки з цифрами.")
-    
+        self.msg("Information", "Ви можете додати до (або відняти від) хвилин(и) або секунд(и)\nвідповідне значення,"  
+                                                " натиснувши на кнопки з цифрами.")
+
     def msg(self, rison, message):
         msg = QMessageBox()
         if rison == "Error": 

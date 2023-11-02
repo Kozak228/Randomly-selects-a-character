@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>436</width>
-    <height>148</height>
+    <width>351</width>
+    <height>151</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,26 +17,51 @@
    <iconset>
     <normaloff>../Img_app/download.ico</normaloff>../Img_app/download.ico</iconset>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget{
+	background-color: #1E1E1E;
+}
+
+QPushButton{
+	background-color: black;
+	color: yellow;
+}
+QPushButton:hover{
+	border: 2px dashed #00FA9A;
+	color: #00FA9A;
+}
+QPushButton:pressed{
+	background-color: #2F4F4F;
+	color: #FF0000;
+	border: 1px dashed #000080;
+}
+QPushButton:disabled{
+	background-color: black;
+	color: #800000;
+	border: none;
+}
+
+QLabel{
+	color: #FF4500;
+}
+
+QGroupBox{
+	backgrond-color: #696969;
+	color: #7FFF00;
+	border: 1px solid #0000CD;
+}
+
+QProgressBar{
+	border: 1px solid #FF00FF;
+	color: #FFFF00;
+	text-align: center;
+}
+QProgressBar:chunk{
+	background-color: green;
+	width: 6px;
+}</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="pushButton_exit">
-    <property name="geometry">
-     <rect>
-      <x>350</x>
-      <y>107</y>
-      <width>84</width>
-      <height>38</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>9</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Повернуться
-на головну</string>
-    </property>
-   </widget>
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
@@ -52,9 +77,9 @@
     <widget class="QLabel" name="label_download_info">
      <property name="geometry">
       <rect>
-       <x>30</x>
+       <x>14</x>
        <y>30</y>
-       <width>211</width>
+       <width>219</width>
        <height>35</height>
       </rect>
      </property>
@@ -89,20 +114,36 @@
 дані</string>
      </property>
     </widget>
-    <widget class="QSlider" name="horizontalSlider">
+    <widget class="QProgressBar" name="progressBar">
      <property name="geometry">
       <rect>
        <x>11</x>
-       <y>81</y>
-       <width>221</width>
-       <height>40</height>
+       <y>87</y>
+       <width>227</width>
+       <height>37</height>
       </rect>
      </property>
-     <property name="maximum">
-      <number>100</number>
+     <property name="value">
+      <number>0</number>
      </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+    </widget>
+    <widget class="QPushButton" name="pushButton_exit">
+     <property name="geometry">
+      <rect>
+       <x>245</x>
+       <y>27</y>
+       <width>84</width>
+       <height>38</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Повернуться
+на головну</string>
      </property>
     </widget>
    </widget>

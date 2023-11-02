@@ -12,17 +12,50 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(355, 291)
+        MainWindow.resize(361, 299)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("../Img_app/main_app.ico"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         MainWindow.setWindowIcon(icon)
+        MainWindow.setStyleSheet("QWidget{\n"
+"    background-color: #1E1E1E;\n"
+"}\n"
+"\n"
+"QPushButton{\n"
+"    background-color: black;\n"
+"    color: yellow;\n"
+"    border: 1px solid #483D8B;\n"
+"}\n"
+"QPushButton:pressed{\n"
+"    background-color: #2F4F4F;\n"
+"    color: #FF0000;\n"
+"    border: 1px dashed #000080;\n"
+"}\n"
+"QPushButton:hover{\n"
+"    border: 2px dashed #00FA9A;\n"
+"    color: #00FA9A;\n"
+"}\n"
+"QPushButton:disabled{\n"
+"    background-color: black;\n"
+"    color: #800000;\n"
+"    border: none;\n"
+"}\n"
+"\n"
+"QLabel{\n"
+"    color: #FF4500;\n"
+"}\n"
+"\n"
+"QGroupBox{\n"
+"    backgrond-color: #696969;\n"
+"    color: #7FFF00;\n"
+"    border: 1px solid #0000CD;\n"
+"}")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.groupBox = QtWidgets.QGroupBox(self.centralwidget)
-        self.groupBox.setGeometry(QtCore.QRect(10, 10, 214, 74))
+        self.groupBox.setGeometry(QtCore.QRect(10, 10, 217, 77))
         self.groupBox.setObjectName("groupBox")
         self.label_info_folder = QtWidgets.QLabel(self.groupBox)
-        self.label_info_folder.setGeometry(QtCore.QRect(10, 20, 101, 61))
+        self.label_info_folder.setGeometry(QtCore.QRect(10, 20, 101, 50))
         font = QtGui.QFont()
         font.setPointSize(9)
         self.label_info_folder.setFont(font)
@@ -37,7 +70,7 @@ class Ui_MainWindow(object):
         self.pushButton_download_data.setFont(font)
         self.pushButton_download_data.setObjectName("pushButton_download_data")
         self.groupBox_2 = QtWidgets.QGroupBox(self.centralwidget)
-        self.groupBox_2.setGeometry(QtCore.QRect(10, 90, 342, 200))
+        self.groupBox_2.setGeometry(QtCore.QRect(10, 91, 342, 200))
         self.groupBox_2.setObjectName("groupBox_2")
         self.label_img_charact = QtWidgets.QLabel(self.groupBox_2)
         self.label_img_charact.setGeometry(QtCore.QRect(166, 61, 170, 131))

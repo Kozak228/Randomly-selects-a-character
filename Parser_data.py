@@ -5,8 +5,9 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 
-from Create_and_remove_forders import proverka_or_create_dir_data
+from Create_and_remove_forders import proverka_or_create_dir_data, proverka_path_dir_icon
 from Write_file import write_file
+from Loging_error import log_error
 
 class Parser_data():
     def __init__(self, url):
@@ -60,7 +61,7 @@ class Parser_data():
             write_file(self.dict_all_links_data, self.name_file, self.path_main_dir)
 
         except Exception as ex:
-            print(ex)
+            log_error(proverka_path_dir_icon('log'), ex)
         finally:
             self.browser.close()
             self.browser.quit()

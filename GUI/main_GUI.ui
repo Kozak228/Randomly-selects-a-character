@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>355</width>
-    <height>291</height>
+    <width>361</width>
+    <height>299</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,14 +17,49 @@
    <iconset>
     <normaloff>../Img_app/main_app.ico</normaloff>../Img_app/main_app.ico</iconset>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget{
+	background-color: #1E1E1E;
+}
+
+QPushButton{
+	background-color: black;
+	color: yellow;
+	border: 1px solid #483D8B;
+}
+QPushButton:pressed{
+	background-color: #2F4F4F;
+	color: #FF0000;
+	border: 1px dashed #000080;
+}
+QPushButton:hover{
+	border: 2px dashed #00FA9A;
+	color: #00FA9A;
+}
+QPushButton:disabled{
+	background-color: black;
+	color: #800000;
+	border: none;
+}
+
+QLabel{
+	color: #FF4500;
+}
+
+QGroupBox{
+	backgrond-color: #696969;
+	color: #7FFF00;
+	border: 1px solid #0000CD;
+}</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>214</width>
-      <height>74</height>
+      <width>217</width>
+      <height>77</height>
      </rect>
     </property>
     <property name="title">
@@ -36,7 +71,7 @@
        <x>10</x>
        <y>20</y>
        <width>101</width>
-       <height>61</height>
+       <height>50</height>
       </rect>
      </property>
      <property name="font">
@@ -78,7 +113,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>90</y>
+      <y>91</y>
       <width>342</width>
       <height>200</height>
      </rect>

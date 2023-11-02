@@ -3,6 +3,7 @@ from time import sleep
 from GUI.download_GUI import Ui_MainWindow
 from PyQt6.QtWidgets import QMainWindow, QApplication
 from PyQt6.QtCore import Qt
+
 from requests import get
 
 from Parser_data import Parser_data
@@ -16,7 +17,7 @@ class Parser_and_download(QMainWindow):
         self.ui.setupUi(self)
 
         self.setWindowFlags(Qt.WindowType.WindowSystemMenuHint)
-        self.setFixedSize(436, 148)
+        self.setFixedSize(351, 151)
 
         self.name_file = 'data'
 
@@ -30,7 +31,7 @@ class Parser_and_download(QMainWindow):
         self.ui.pushButton_pars_and_download_data.setEnabled(False)
         self.ui.pushButton_exit.setEnabled(False)
 
-        self.ui.horizontalSlider.setValue(0)
+        self.ui.progressBar.setValue(0)
 
         self.cnt_img = 0
 
@@ -49,7 +50,7 @@ class Parser_and_download(QMainWindow):
 
         self.read_file_dates(path_main_dir, self.name_file)
 
-        self.ui.horizontalSlider.setMaximum(self.cnt_total_dates)
+        self.ui.progressBar.setMaximum(self.cnt_total_dates)
 
         path_secondary_dir = proverka_or_create_dir_data(path_main_dir, 'element',"")
 
@@ -77,7 +78,7 @@ class Parser_and_download(QMainWindow):
 
             self.cnt_img += 1
 
-            self.ui.horizontalSlider.setValue(self.cnt_img)
+            self.ui.progressBar.setValue(self.cnt_img)
             QApplication.processEvents()
 
             self.ui.label_download_info.setText(f'Завантажується: {self.cnt_img} / {self.cnt_total_dates}')
