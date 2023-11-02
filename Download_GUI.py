@@ -27,6 +27,9 @@ class Parser_and_download(QMainWindow):
 
         parser_data.pars_data()
     def download_data(self):
+        self.ui.pushButton_pars_and_download_data.setEnabled(False)
+        self.ui.pushButton_exit.setEnabled(False)
+
         self.ui.horizontalSlider.setValue(0)
 
         self.cnt_img = 0
@@ -60,6 +63,9 @@ class Parser_and_download(QMainWindow):
             self.download_image(path_secondary_dir, self.dict_all_dates.get(self.list_names_element[characters_with_elem]))
 
         self.delete_dir_or_file(path_main_dir, self.name_file)
+
+        self.ui.pushButton_pars_and_download_data.setEnabled(True)
+        self.ui.pushButton_exit.setEnabled(True)
 
     def download_image(self, path_dir, links):
         for i in links:

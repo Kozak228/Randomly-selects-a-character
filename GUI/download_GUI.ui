@@ -33,7 +33,8 @@
      </font>
     </property>
     <property name="text">
-     <string>Вихід</string>
+     <string>Повернуться
+на головну</string>
     </property>
    </widget>
    <widget class="QGroupBox" name="groupBox">

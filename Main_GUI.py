@@ -7,6 +7,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QIcon, QPixmap
 
 from Download_GUI import Parser_and_download
+from Timer_GUI import Timers
 
 from Create_and_remove_forders import path_to_dir, proverka_or_create_dir_data, proverka_path_dir_icon
 
@@ -17,22 +18,39 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
 
         self.setWindowFlags(Qt.WindowType.BypassWindowManagerHint)
-        self.setFixedSize(409, 291)
+        self.setFixedSize(355, 291)
 
         self.setWindowIcon(QIcon(f"{proverka_path_dir_icon('img_app')}main_app.ico"))
+        self.ui.pushButton_clear.setIcon(QIcon(f"{proverka_path_dir_icon('img_app')}clear.png"))
 
         self.reload_exist()
+
+        self.parser_and_download_window = Parser_and_download()
+        self.timer_window = Timers()
 
         self.ui.pushButton_rand_elem.clicked.connect(self.btn_random_element)
         self.ui.pushButton_rand_charact.clicked.connect(self.btn_random_character)
         self.ui.pushButton_clear.clicked.connect(self.btn_clear_labels)
         self.ui.pushButton_download_data.clicked.connect(self.download_datas)
+        self.ui.pushButton_timer.clicked.connect(self.timer)
         self.ui.pushButton_exit.clicked.connect(self.exit_app)
+
+    def timer(self):
+        self.hide()
+
+        self.timer_window.setWindowIcon(QIcon(f"{proverka_path_dir_icon('img_app')}timer.ico"))
+        self.timer_window.show()
+
+        self.timer_window.ui.pushButton_exit.clicked.connect(self.return_main_with_timer_window)
+
+    def return_main_with_timer_window(self):
+        self.timer_window.close()
+
+        self.show()
 
     def download_datas(self):
         self.hide()
 
-        self.parser_and_download_window = Parser_and_download()
         self.parser_and_download_window.setWindowIcon(QIcon(f"{proverka_path_dir_icon('img_app')}download.ico"))
         self.parser_and_download_window.show()
 

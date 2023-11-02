@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>409</width>
+    <width>355</width>
     <height>291</height>
    </rect>
   </property>
@@ -165,10 +165,10 @@
     <widget class="QPushButton" name="pushButton_clear">
      <property name="geometry">
       <rect>
-       <x>138</x>
-       <y>17</y>
-       <width>72</width>
-       <height>37</height>
+       <x>148</x>
+       <y>20</y>
+       <width>48</width>
+       <height>34</height>
       </rect>
      </property>
      <property name="font">
@@ -177,17 +177,27 @@
       </font>
      </property>
      <property name="text">
-      <string>Очистити</string>
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../Img_app/clear.png</normaloff>../Img_app/clear.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>31</width>
+       <height>76</height>
+      </size>
      </property>
     </widget>
    </widget>
    <widget class="QPushButton" name="pushButton_exit">
     <property name="geometry">
      <rect>
-      <x>359</x>
-      <y>262</y>
-      <width>48</width>
-      <height>26</height>
+      <x>253</x>
+      <y>54</y>
+      <width>59</width>
+      <height>32</height>
      </rect>
     </property>
     <property name="font">
@@ -197,6 +207,24 @@
     </property>
     <property name="text">
      <string>Вихід</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_timer">
+    <property name="geometry">
+     <rect>
+      <x>252</x>
+      <y>12</y>
+      <width>59</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Timer</string>
     </property>
    </widget>
   </widget>

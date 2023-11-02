@@ -54,7 +54,8 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Download data"))
-        self.pushButton_exit.setText(_translate("MainWindow", "Вихід"))
+        self.pushButton_exit.setText(_translate("MainWindow", "Повернуться\n"
+"на головну"))
         self.groupBox.setTitle(_translate("MainWindow", "Інформація про завантаження"))
         self.pushButton_pars_and_download_data.setText(_translate("MainWindow", "Завантажити\n"
 "дані"))
