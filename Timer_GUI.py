@@ -105,8 +105,12 @@ class Timers(QMainWindow):
             elem_value = int(eval(f"self.ui.label_{change_time}.text()"))
             summ = elem_value + add_or_vicht_time
 
-            eval(f"self.ui.label_{change_time}.setText(str(add_zero({summ})))") if summ < 60 else eval(
-                f'self.ui.label_{change_time}.setText("00")')
+            if change_time == 's':
+                eval(f"self.ui.label_{change_time}.setText(str(add_zero({summ})))") if summ < 60 else eval(
+                    f'self.ui.label_{change_time}.setText("00")')
+            else:
+                eval(f"self.ui.label_{change_time}.setText(str(add_zero({summ})))")
+
         else:
             elem_value = int(eval(f"self.ui.label_{change_time}.text()"))
             summ = elem_value - add_or_vicht_time

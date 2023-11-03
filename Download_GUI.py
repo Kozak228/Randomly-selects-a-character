@@ -1,4 +1,5 @@
 from time import sleep
+from threading import Thread
 
 from GUI.download_GUI import Ui_MainWindow
 from PyQt6.QtWidgets import QMainWindow, QApplication
@@ -9,6 +10,7 @@ from requests import get
 from Parser_data import Parser_data
 from Create_and_remove_forders import path_to_dir, proverka_path_dir_icon, remove_dir_or_file, proverka_or_create_dir_data
 from Read_file import read_file
+from Loging_error import log_error
 
 class Parser_and_download(QMainWindow):
     def __init__(self):
@@ -18,6 +20,8 @@ class Parser_and_download(QMainWindow):
 
         self.setWindowFlags(Qt.WindowType.WindowSystemMenuHint)
         self.setFixedSize(351, 151)
+
+        self.thread_pars = Thread(target=self.pars_links)
 
         self.name_file = 'data'
 
@@ -32,7 +36,6 @@ class Parser_and_download(QMainWindow):
         self.ui.pushButton_exit.setEnabled(False)
 
         self.ui.progressBar.setValue(0)
-
         self.cnt_img = 0
 
         path_main_dir = proverka_path_dir_icon('Data')
@@ -42,9 +45,12 @@ class Parser_and_download(QMainWindow):
         self.ui.label_download_info.setText('Збiр даних....')
         QApplication.processEvents()
 
-        self.pars_links()
+        try:
+            self.thread_pars.start()
+            self.thread_pars.join()
 
-        sleep(3)
+        except RuntimeError as ex:
+            log_error(proverka_path_dir_icon('log'), ex)
 
         path_main_dir = proverka_or_create_dir_data()
 
@@ -81,11 +87,11 @@ class Parser_and_download(QMainWindow):
             self.ui.progressBar.setValue(self.cnt_img)
             QApplication.processEvents()
 
-            self.ui.label_download_info.setText(f'Завантажується: {self.cnt_img} / {self.cnt_total_dates}')
+            self.ui.label_download_info.setText(f'Завантажено: {self.cnt_img} / {self.cnt_total_dates}')
             sleep(0.2)
 
         if self.cnt_img == self.cnt_total_dates:
-            self.ui.label_download_info.setText('Загрузка завершена')
+            self.ui.label_download_info.setText('Дані завантажені')
 
     def delete_dir_or_file(self, path, name_file = ''):
         if name_file == "":
