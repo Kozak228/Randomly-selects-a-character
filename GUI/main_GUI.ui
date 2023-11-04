@@ -259,7 +259,7 @@ QGroupBox{
      </font>
     </property>
     <property name="text">
-     <string>Timer</string>
+     <string>Таймер</string>
     </property>
    </widget>
   </widget>

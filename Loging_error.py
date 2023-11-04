@@ -1,12 +1,14 @@
-from logging import basicConfig, exception, warning
+from logging import getLogger, WARNING, FileHandler, Formatter
 
-def log_error(path, msg_error):
-    basicConfig(level=warning,
-                filename='log_errors.log',
-                filemode='a',
-                path=path,
-                format='%(asctime)s | %(levelname)s | %(message)s',
-                datefmt='%d.%m.%Y %I:%M:%S',
-                encoding='utf8')
+from Create_and_remove_forders import proverka_path_dir_icon
 
-    exception(msg_error)
+def logger_init(name):
+    logger = getLogger(name)
+    format ='%(asctime)s | %(name)s : %(lineno)s | %(levelname)s | %(message)s'
+    logger.setLevel(WARNING)
+
+    fh = FileHandler(filename = f'{proverka_path_dir_icon("log")}logger_errors.log', encoding = 'utf-8')
+    fh.setFormatter(Formatter(format))
+    fh.setLevel(WARNING)
+
+    logger.addHandler(fh)

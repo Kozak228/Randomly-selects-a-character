@@ -1,8 +1,7 @@
-from os.path import abspath, exists
+from os.path import abspath, exists, isfile
 from os import mkdir, remove
 from shutil import rmtree
-
-from Loging_error import log_error
+from logging import getLogger
 
 def path_to_dir(name_dir):
     path_to_app = abspath(__name__)
@@ -12,6 +11,9 @@ def path_to_dir(name_dir):
     path_dir = path_main_dir + name_dir
 
     return True if exists(path_dir) else False
+
+def proverka_path_file(path):
+    return True if isfile(path) else False
 
 def proverka_path_dir_icon(name_dir):
     path_to_app = abspath(__name__)
@@ -57,4 +59,5 @@ def remove_dir_or_file(path_dir, name_file):
     try:
         rmtree(path_dir[:-1]) if name_file == '' else remove(f'{path_dir + name_file}.json')
     except OSError as ex:
-        log_error(proverka_path_dir_icon('log'), ex)
+        logger = getLogger('app.download.remove')
+        logger.error(ex)

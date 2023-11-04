@@ -136,4 +136,4 @@ class Ui_MainWindow(object):
         self.pushButton_rand_charact.setText(_translate("MainWindow", "Зарандомити\n"
 "персонажа"))
         self.pushButton_exit.setText(_translate("MainWindow", "Вихід"))
-        self.pushButton_timer.setText(_translate("MainWindow", "Timer"))
+        self.pushButton_timer.setText(_translate("MainWindow", "Таймер"))

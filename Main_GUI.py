@@ -8,6 +8,7 @@ from PyQt6.QtGui import QIcon, QPixmap
 
 from Download_GUI import Parser_and_download
 from Timer_GUI import Timers
+from Loging_error import logger_init
 
 from Create_and_remove_forders import path_to_dir, proverka_or_create_dir_data, proverka_path_dir_icon
 
@@ -22,6 +23,8 @@ class MainWindow(QMainWindow):
 
         self.setWindowIcon(QIcon(f"{proverka_path_dir_icon('img_app')}main_app.ico"))
         self.ui.pushButton_clear.setIcon(QIcon(f"{proverka_path_dir_icon('img_app')}clear.png"))
+
+        logger_init('app')
 
         self.reload_exist()
 
@@ -51,6 +54,9 @@ class MainWindow(QMainWindow):
         self.hide()
 
         self.parser_and_download_window.setWindowIcon(QIcon(f"{proverka_path_dir_icon('img_app')}download.ico"))
+
+        self.parser_and_download_window.ui.pushButton_pars_and_download_data.setEnabled(True)
+
         self.parser_and_download_window.show()
 
         self.parser_and_download_window.ui.pushButton_exit.clicked.connect(self.return_main_with_parser_and_download_window)
@@ -87,7 +93,6 @@ class MainWindow(QMainWindow):
         self.ui.label_img_charact.setStyleSheet(self.change_border_color_label_with_elem(self.random_element[:self.random_element.rindex('.')]))
 
     def change_border_color_label_with_elem(self, element):
-
         if element == 'anemo':
             return 'border: 2px solid #37dba4;'
         elif element == 'cryo':
@@ -106,19 +111,22 @@ class MainWindow(QMainWindow):
             return 'border: none;'
 
     def reload_exist(self):
-        self.path_pulling()
         self.exists_dir('Data')
+        self.path_pulling()
 
     def path_pulling(self):
-        if path_to_dir('Data'):
+        if path_to_dir('Data') and len(self.list_dirs_in_data) == 8:
             self.path_to_data = proverka_or_create_dir_data()
             self.path_dir_element = proverka_or_create_dir_data(self.path_to_data, 'element', '')
 
             self.list_element_img = listdir(self.path_dir_element)
 
     def exists_dir(self, name_dir):
-        if path_to_dir(name_dir):
-            self.ui.label_info_folder.setText("Папку з даними знайдено.")
+        path_dir = proverka_path_dir_icon(name_dir)
+        self.list_dirs_in_data = listdir(path_dir)
+
+        if path_to_dir(name_dir) and len(self.list_dirs_in_data) == 8:
+            self.ui.label_info_folder.setText("Дані знайдено.")
             self.ui.label_info_folder.setStyleSheet("color: #00FF00;")
 
             self.ui.pushButton_rand_charact.setEnabled(True)
@@ -126,8 +134,9 @@ class MainWindow(QMainWindow):
             self.ui.pushButton_clear.setEnabled(True)
 
             self.ui.pushButton_download_data.setText("Оновити\nдані")
+
         else:
-            self.ui.label_info_folder.setText("Папку з даними не знайдено.")
+            self.ui.label_info_folder.setText("Дані не знайдено.")
             self.ui.label_info_folder.setStyleSheet("color: #FF0000;")
 
             self.ui.pushButton_rand_charact.setEnabled(False)

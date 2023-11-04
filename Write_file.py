@@ -1,9 +1,9 @@
 from json import dumps
-
-from Loging_error import log_error
-from Create_and_remove_forders import proverka_path_dir_icon
+from logging import getLogger
 
 def write_file(dicts, file_name, file_path):
+    logger = getLogger('app.write_file')
+
     try:
         json_file = dumps(dicts, indent=4, ensure_ascii=False)
 
@@ -11,4 +11,4 @@ def write_file(dicts, file_name, file_path):
             f.write(json_file)
 
     except Exception as ex:
-        log_error(proverka_path_dir_icon('log'), ex)
+        logger.error(ex)

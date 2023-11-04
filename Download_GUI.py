@@ -1,5 +1,6 @@
 from time import sleep
 from threading import Thread
+from logging import getLogger
 
 from GUI.download_GUI import Ui_MainWindow
 from PyQt6.QtWidgets import QMainWindow, QApplication
@@ -8,9 +9,8 @@ from PyQt6.QtCore import Qt
 from requests import get
 
 from Parser_data import Parser_data
-from Create_and_remove_forders import path_to_dir, proverka_path_dir_icon, remove_dir_or_file, proverka_or_create_dir_data
+from Create_and_remove_forders import path_to_dir, proverka_path_dir_icon, remove_dir_or_file, proverka_or_create_dir_data, proverka_path_file
 from Read_file import read_file
-from Loging_error import log_error
 
 class Parser_and_download(QMainWindow):
     def __init__(self):
@@ -20,6 +20,8 @@ class Parser_and_download(QMainWindow):
 
         self.setWindowFlags(Qt.WindowType.WindowSystemMenuHint)
         self.setFixedSize(351, 151)
+
+        self.logger = getLogger('app.download')
 
         self.thread_pars = Thread(target=self.pars_links)
 
@@ -38,19 +40,20 @@ class Parser_and_download(QMainWindow):
         self.ui.progressBar.setValue(0)
         self.cnt_img = 0
 
-        path_main_dir = proverka_path_dir_icon('Data')
+        if path_to_dir('Data') and not proverka_path_file(f'{proverka_path_dir_icon("Data")}data.json'):
+            path_main_dir = proverka_path_dir_icon('Data')
 
-        self.delete_dir_or_file(path_main_dir)
+            self.delete_dir_or_file(path_main_dir)
 
-        self.ui.label_download_info.setText('Збiр даних....')
-        QApplication.processEvents()
+            self.ui.label_download_info.setText('Збiр даних....')
+            QApplication.processEvents()
 
-        try:
-            self.thread_pars.start()
-            self.thread_pars.join()
+            try:
+                self.thread_pars.start()
+                self.thread_pars.join()
 
-        except RuntimeError as ex:
-            log_error(proverka_path_dir_icon('log'), ex)
+            except RuntimeError as ex:
+                self.logger.error(ex)
 
         path_main_dir = proverka_or_create_dir_data()
 
@@ -71,7 +74,6 @@ class Parser_and_download(QMainWindow):
 
         self.delete_dir_or_file(path_main_dir, self.name_file)
 
-        self.ui.pushButton_pars_and_download_data.setEnabled(True)
         self.ui.pushButton_exit.setEnabled(True)
 
     def download_image(self, path_dir, links):
