@@ -236,7 +236,7 @@ QRadioButton:disabled{
      </font>
     </property>
     <property name="text">
-     <string>Повернуться
+     <string>Повернутися
 на головну</string>
     </property>
    </widget>

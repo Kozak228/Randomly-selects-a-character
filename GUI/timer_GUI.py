@@ -260,7 +260,7 @@ class Ui_MainWindow(object):
         self.label_7.setText(_translate("MainWindow", "Хвилини"))
         self.label_8.setText(_translate("MainWindow", "Секунди"))
         self.label_s.setText(_translate("MainWindow", "00"))
-        self.pushButton_exit.setText(_translate("MainWindow", "Повернуться\n"
+        self.pushButton_exit.setText(_translate("MainWindow", "Повернутися\n"
 "на головну"))
         self.groupBox_2.setTitle(_translate("MainWindow", "Додати / Відняти час"))
         self.pushButton_add_10.setText(_translate("MainWindow", "10"))

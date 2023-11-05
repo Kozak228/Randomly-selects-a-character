@@ -9,7 +9,7 @@ from PyQt6.QtCore import Qt
 from requests import get
 
 from Parser_data import Parser_data
-from Create_and_remove_forders import path_to_dir, proverka_path_dir_icon, remove_dir_or_file, proverka_or_create_dir_data, proverka_path_file
+from Create_and_remove_forders import path_to_dir, proverka_path_dir_icon, remove_dir_or_file, proverka_or_create_dir_data
 from Read_file import read_file
 
 class Parser_and_download(QMainWindow):
@@ -40,20 +40,19 @@ class Parser_and_download(QMainWindow):
         self.ui.progressBar.setValue(0)
         self.cnt_img = 0
 
-        if path_to_dir('Data') and not proverka_path_file(f'{proverka_path_dir_icon("Data")}data.json'):
-            path_main_dir = proverka_path_dir_icon('Data')
+        path_main_dir = proverka_path_dir_icon('Data')
 
-            self.delete_dir_or_file(path_main_dir)
+        self.delete_dir_or_file(path_main_dir)
 
-            self.ui.label_download_info.setText('Збiр даних....')
-            QApplication.processEvents()
+        self.ui.label_download_info.setText('Збiр даних....')
+        QApplication.processEvents()
 
-            try:
-                self.thread_pars.start()
-                self.thread_pars.join()
+        try:
+            self.thread_pars.start()
+            self.thread_pars.join()
 
-            except RuntimeError as ex:
-                self.logger.error(ex)
+        except RuntimeError as ex:
+            self.logger.error(ex)
 
         path_main_dir = proverka_or_create_dir_data()
 

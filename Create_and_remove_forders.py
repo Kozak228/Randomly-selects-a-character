@@ -12,9 +12,6 @@ def path_to_dir(name_dir):
 
     return True if exists(path_dir) else False
 
-def proverka_path_file(path):
-    return True if isfile(path) else False
-
 def proverka_path_dir_icon(name_dir):
     path_to_app = abspath(__name__)
 
