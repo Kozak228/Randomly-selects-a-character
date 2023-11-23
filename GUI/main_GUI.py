@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(361, 299)
+        MainWindow.resize(360, 345)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("../Img_app/main_app.ico"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         MainWindow.setWindowIcon(icon)
@@ -48,6 +48,15 @@ class Ui_MainWindow(object):
 "    backgrond-color: #696969;\n"
 "    color: #7FFF00;\n"
 "    border: 1px solid #0000CD;\n"
+"}\n"
+"\n"
+"QLineEdit{\n"
+"    background-color: #DCDCDC;\n"
+"    color:     #000080;\n"
+"    border: 1px solid #7FFF00; \n"
+"}\n"
+"QLineEdit:focus{\n"
+"    border: 1px dashed #800000;\n"
 "}")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -70,7 +79,7 @@ class Ui_MainWindow(object):
         self.pushButton_download_data.setFont(font)
         self.pushButton_download_data.setObjectName("pushButton_download_data")
         self.groupBox_2 = QtWidgets.QGroupBox(self.centralwidget)
-        self.groupBox_2.setGeometry(QtCore.QRect(10, 91, 342, 200))
+        self.groupBox_2.setGeometry(QtCore.QRect(10, 140, 342, 200))
         self.groupBox_2.setObjectName("groupBox_2")
         self.label_img_charact = QtWidgets.QLabel(self.groupBox_2)
         self.label_img_charact.setGeometry(QtCore.QRect(166, 61, 170, 131))
@@ -119,6 +128,47 @@ class Ui_MainWindow(object):
         font.setPointSize(9)
         self.pushButton_timer.setFont(font)
         self.pushButton_timer.setObjectName("pushButton_timer")
+        self.label = QtWidgets.QLabel(self.centralwidget)
+        self.label.setGeometry(QtCore.QRect(15, 100, 212, 26))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setWeight(50)
+        self.label.setFont(font)
+        self.label.setStyleSheet("color: #7FFF00;")
+        self.label.setObjectName("label")
+        self.lineEdit_last_border_num = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit_last_border_num.setGeometry(QtCore.QRect(234, 104, 28, 17))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.lineEdit_last_border_num.setFont(font)
+        self.lineEdit_last_border_num.setText("")
+        self.lineEdit_last_border_num.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.lineEdit_last_border_num.setPlaceholderText("")
+        self.lineEdit_last_border_num.setObjectName("lineEdit_last_border_num")
+        self.label_2 = QtWidgets.QLabel(self.centralwidget)
+        self.label_2.setGeometry(QtCore.QRect(272, 101, 26, 19))
+        font = QtGui.QFont()
+        font.setPointSize(23)
+        self.label_2.setFont(font)
+        self.label_2.setObjectName("label_2")
+        self.label_3 = QtWidgets.QLabel(self.centralwidget)
+        self.label_3.setGeometry(QtCore.QRect(265, 100, 7, 26))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.label_3.setFont(font)
+        self.label_3.setStyleSheet("color: #7FFF00;")
+        self.label_3.setObjectName("label_3")
+        self.label_result_rand_num = QtWidgets.QLabel(self.centralwidget)
+        self.label_result_rand_num.setGeometry(QtCore.QRect(299, 100, 40, 26))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_result_rand_num.setFont(font)
+        self.label_result_rand_num.setStyleSheet("color: #7FFF00;")
+        self.label_result_rand_num.setText("")
+        self.label_result_rand_num.setObjectName("label_result_rand_num")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -137,3 +187,6 @@ class Ui_MainWindow(object):
 "персонажа"))
         self.pushButton_exit.setText(_translate("MainWindow", "Вихід"))
         self.pushButton_timer.setText(_translate("MainWindow", "Таймер"))
+        self.label.setText(_translate("MainWindow", "Рандомне число між кордонами (1,"))
+        self.label_2.setText(_translate("MainWindow", "= "))
+        self.label_3.setText(_translate("MainWindow", ")"))

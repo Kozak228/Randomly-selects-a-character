@@ -21,7 +21,7 @@ class Timers(QMainWindow):
         self.ui.pushButton_play.setIcon(QIcon(f"{proverka_path_dir_icon('img_app')}play.png"))
         self.ui.pushButton_clear.setIcon(QIcon(f"{proverka_path_dir_icon('img_app')}clear.png"))
 
-        self.audio = media.load(f"{proverka_path_dir_icon('audio')}audio.wav", streaming=False)
+        self.audio = media.load(f"{proverka_path_dir_icon('audio')}timer_finish.wav", streaming=False)
 
         self.ui.pushButton_clear.clicked.connect(self.reset_time)
         self.ui.pushButton_FAQ_add.clicked.connect(self.msg_FAQ_action)
@@ -34,7 +34,7 @@ class Timers(QMainWindow):
 
     def start_timer(self):
         if self.ui.pushButton_clear.isEnabled():
-            if (int(self.ui.label_m.text()) == 0 and int(self.ui.label_s.text()) != 0) or (int(self.ui.label_m.text()) != 0 and int(self.ui.label_s.text()) == 0):
+            if int(self.ui.label_m.text()) != 0 or int(self.ui.label_s.text()) != 0:
                 self.setting_and_start_timer()
             else:
                 self.msg('Error', 'Не введено час зворотного відліку.')

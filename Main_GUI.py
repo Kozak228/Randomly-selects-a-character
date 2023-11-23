@@ -1,10 +1,10 @@
 from os import listdir
-from random import choice
+from random import choice, randint
 
 from GUI.main_GUI import Ui_MainWindow
 from PyQt6.QtWidgets import QApplication, QMainWindow
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QIcon, QPixmap
+from PyQt6.QtGui import QIcon, QPixmap, QFont
 
 from Download_GUI import Parser_and_download
 from Timer_GUI import Timers
@@ -19,7 +19,11 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
 
         self.setWindowFlags(Qt.WindowType.BypassWindowManagerHint)
-        self.setFixedSize(361, 299)
+        self.setFixedSize(361, 345)
+
+        font_label_result_rand_num = QFont()
+        font_label_result_rand_num.setBold(True)
+        self.ui.label_result_rand_num.setFont(font_label_result_rand_num)
 
         self.setWindowIcon(QIcon(f"{proverka_path_dir_icon('img_app')}main_app.ico"))
         self.ui.pushButton_clear.setIcon(QIcon(f"{proverka_path_dir_icon('img_app')}clear.png"))
@@ -35,13 +39,26 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_rand_charact.clicked.connect(self.btn_random_character)
         self.ui.pushButton_clear.clicked.connect(self.btn_clear_labels)
         self.ui.pushButton_download_data.clicked.connect(self.download_datas)
+        self.ui.lineEdit_last_border_num.textChanged.connect(self.random_number)
         self.ui.pushButton_timer.clicked.connect(self.timer)
         self.ui.pushButton_exit.clicked.connect(self.exit_app)
+
+    def random_number(self):
+        last_border_num = self.ui.lineEdit_last_border_num.text()
+
+        try:
+            last_border_num = int(last_border_num)
+
+            self.ui.label_result_rand_num.setText(str(randint(1, last_border_num)))
+
+        except:
+            self.ui.label_result_rand_num.setText('-')
 
     def timer(self):
         self.hide()
 
         self.timer_window.setWindowIcon(QIcon(f"{proverka_path_dir_icon('img_app')}timer.ico"))
+        self.timer_window.ui.pushButton_clear.click()
         self.timer_window.show()
 
         self.timer_window.ui.pushButton_exit.clicked.connect(self.return_main_with_timer_window)
