@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>748</width>
+    <width>760</width>
     <height>514</height>
    </rect>
   </property>
@@ -131,7 +131,7 @@ QRadioButton:hover{
       <x>10</x>
       <y>180</y>
       <width>342</width>
-      <height>200</height>
+      <height>285</height>
      </rect>
     </property>
     <property name="title">
@@ -241,6 +241,35 @@ QRadioButton:hover{
       </size>
      </property>
     </widget>
+    <widget class="QLabel" name="label_name_charact">
+     <property name="geometry">
+      <rect>
+       <x>166</x>
+       <y>197</y>
+       <width>170</width>
+       <height>83</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>15</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: #ADFF2F</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
    </widget>
    <widget class="QPushButton" name="pushButton_exit">
     <property name="geometry">
@@ -281,8 +310,8 @@ QRadioButton:hover{
    <widget class="QGroupBox" name="groupBox_3">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>179</y>
+      <x>7</x>
+      <y>180</y>
       <width>733</width>
       <height>330</height>
      </rect>

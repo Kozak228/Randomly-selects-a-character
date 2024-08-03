@@ -14,7 +14,9 @@ class Parser_data():
         self.url = url
 
         self.name_file = 'data'
+        self.name_characters_file = 'Name characters'
         self.dict_all_links_data = {}
+        self.dict_all_name_characters = {}
         self.logger = getLogger('app.parser')
 
         self.path_main_dir = proverka_or_create_dir_data()
@@ -50,6 +52,14 @@ class Parser_data():
 
                 list_links_on_img_characters = ['https://paimon.moe' + i.get('src') for i in list_img_tag_characters]
 
+                list_name_tag_characters = soup.find_all("p", class_="svelte-8c712w")
+
+                list_name_characters = [i.text for i in list_name_tag_characters]
+
+                for link in range(len(list_links_on_img_characters)):
+                    name_in_link = list_links_on_img_characters[link]
+                    self.dict_all_name_characters[name_in_link[name_in_link.rindex('/') + 1 : name_in_link.rindex('.')]] = list_name_characters[link]
+
                 self.dict_all_links_data[list_names_element[characters_with_elem]] = list_links_on_img_characters
 
                 sleep(3)
@@ -60,6 +70,7 @@ class Parser_data():
                 sleep(1)
 
             write_file(self.dict_all_links_data, self.name_file, self.path_main_dir)
+            write_file(self.dict_all_name_characters, self.name_characters_file, self.path_main_dir)
 
         except Exception as ex:
             self.logger.error(ex)

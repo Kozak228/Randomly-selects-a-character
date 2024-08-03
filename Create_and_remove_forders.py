@@ -1,4 +1,4 @@
-from os.path import abspath, exists
+from os.path import abspath, exists, isfile
 from os import mkdir, remove
 from shutil import rmtree
 from logging import getLogger
@@ -11,6 +11,9 @@ def path_to_dir(name_dir):
     path_dir = path_main_dir + name_dir
 
     return True if exists(path_dir) else False
+
+def path_to_file(path_file, name_file):
+    return True if exists(f"{path_file + name_file}.json") else False
 
 def proverka_path_dir_icon(name_dir):
     path_to_app = abspath(__name__)

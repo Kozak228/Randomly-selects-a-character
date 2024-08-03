@@ -10,7 +10,8 @@ from Download_GUI import Parser_and_download
 from Timer_GUI import Timers
 from Loging_error import logger_init
 
-from Create_and_remove_forders import path_to_dir, proverka_or_create_dir_data, proverka_path_dir_icon
+from Create_and_remove_forders import path_to_dir, proverka_or_create_dir_data, proverka_path_dir_icon, path_to_file
+from Read_file import read_file
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -19,7 +20,7 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
 
         self.setWindowFlags(Qt.WindowType.BypassWindowManagerHint)
-        self.setFixedSize(360, 383)
+        self.setFixedSize(360, 470)
 
         self.ui.groupBox_3.setEnabled(False)
         self.ui.groupBox_3.hide()
@@ -77,6 +78,8 @@ class MainWindow(QMainWindow):
         self.show()
 
     def btn_random_element(self):
+        self.btn_clear_labels()
+
         self.random_element = choice(self.list_element_img)
 
         pixmap = QPixmap(f'{self.path_dir_element + self.random_element}')
@@ -84,9 +87,6 @@ class MainWindow(QMainWindow):
 
         self.ui.label_img_element.setPixmap(pixmap)
         self.ui.label_img_element.setStyleSheet(self.change_border_color_label_with_elem(self.random_element[:self.random_element.rindex('.')]))
-
-        self.ui.label_img_charact.clear()
-        self.ui.label_img_charact.setStyleSheet(self.change_border_color_label_with_elem(''))
 
     def btn_random_character(self):
         path_dir_element_characters = proverka_or_create_dir_data(self.path_dir_elements_character,
@@ -100,7 +100,10 @@ class MainWindow(QMainWindow):
         pixmap = QPixmap(f'{path_dir_element_characters + random_element_character}')
 
         self.ui.label_img_charact.setPixmap(pixmap)
+        self.ui.label_name_charact.setText(self.dict_all_name_characters.get(random_element_character[:random_element_character.rindex('.')],
+                                                                             random_element_character[:random_element_character.rindex('.')]))
         self.ui.label_img_charact.setStyleSheet(self.change_border_color_label_with_elem(self.random_element[:self.random_element.rindex('.')]))
+        self.ui.label_name_charact.setStyleSheet(self.change_border_color_label_with_elem(self.random_element[:self.random_element.rindex('.')]))
 
     def btn_random_squad(self):
         dict_element_and_characters = {}
@@ -129,13 +132,13 @@ class MainWindow(QMainWindow):
 
             eval(f"self.ui.label_img_charact_squad_{str(num_lab)}.setPixmap(QPixmap(pixmap))")
             eval(f"self.ui.label_img_charact_squad_{str(num_lab)}.setStyleSheet(self.change_border_color_label_with_elem(random_element))")
-            eval(f"self.ui.label_name_charact_squad_{str(num_lab)}.setText(random_charact[:random_charact.rindex('.')].title())")
+            eval(f"self.ui.label_name_charact_squad_{str(num_lab)}.setText(self.dict_all_name_characters.get(random_charact[:random_charact.rindex('.')],\
+                                                                                         random_charact[:random_charact.rindex('.')]))")
             eval(f"self.ui.label_name_charact_squad_{str(num_lab)}.setStyleSheet(self.change_border_color_label_with_elem(random_element))")
-
     def btn_state(self, btn):
         if btn.isChecked() and btn.objectName() == "radioButton_rand_elem_charact":
             self.setFixedWidth(360)
-            self.setFixedHeight(383)
+            self.setFixedHeight(470)
 
             self.ui.groupBox_2.setEnabled(True)
             self.ui.groupBox_2.show()
@@ -185,6 +188,11 @@ class MainWindow(QMainWindow):
 
             self.list_element_img = listdir(self.path_dir_element)
 
+            if path_to_file(self.path_to_data, 'Name characters'):
+                self.dict_all_name_characters = read_file('Name characters', self.path_to_data)
+            else:
+                self.dict_all_name_characters = {}
+
             self.ui.label_info_folder.setText("Дані знайдено.")
             self.ui.label_info_folder.setStyleSheet("color: #00FF00;")
 
@@ -213,6 +221,8 @@ class MainWindow(QMainWindow):
         self.ui.label_img_charact.setStyleSheet(self.change_border_color_label_with_elem(''))
         self.ui.label_img_element.clear()
         self.ui.label_img_element.setStyleSheet(self.change_border_color_label_with_elem(''))
+        self.ui.label_name_charact.clear()
+        self.ui.label_name_charact.setStyleSheet(self.change_border_color_label_with_elem(''))
 
         for num_lab in range(1, 5):
             eval(f"self.ui.label_img_charact_squad_{str(num_lab)}.clear()")
