@@ -1,4 +1,4 @@
-from os.path import abspath, exists, isfile
+from os.path import abspath, exists
 from os import mkdir, remove
 from shutil import rmtree
 from logging import getLogger

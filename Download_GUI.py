@@ -64,9 +64,11 @@ class Parser_and_download(QMainWindow):
 
         self.download_image(path_secondary_dir, self.dict_all_dates.get('links_on_img_element'))
 
+        path_secondary_beside_dir = proverka_or_create_dir_data(path_main_dir, 'elements_characters', "")
+
         for characters_with_elem in range(len(self.list_names_element)):
 
-            path_secondary_dir = proverka_or_create_dir_data(path_main_dir, self.list_names_element[characters_with_elem],
+            path_secondary_dir = proverka_or_create_dir_data(path_secondary_beside_dir, self.list_names_element[characters_with_elem],
                                                              "")
 
             self.download_image(path_secondary_dir, self.dict_all_dates.get(self.list_names_element[characters_with_elem]))

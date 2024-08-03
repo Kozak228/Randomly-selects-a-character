@@ -1,10 +1,10 @@
 from os import listdir
-from random import choice, randint
+from random import choice, randrange
 
 from GUI.main_GUI import Ui_MainWindow
-from PyQt6.QtWidgets import QApplication, QMainWindow
+from PyQt6.QtWidgets import QApplication, QMainWindow, QMessageBox
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QIcon, QPixmap, QFont
+from PyQt6.QtGui import QIcon, QPixmap
 
 from Download_GUI import Parser_and_download
 from Timer_GUI import Timers
@@ -19,14 +19,14 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
 
         self.setWindowFlags(Qt.WindowType.BypassWindowManagerHint)
-        self.setFixedSize(361, 345)
+        self.setFixedSize(360, 383)
 
-        font_label_result_rand_num = QFont()
-        font_label_result_rand_num.setBold(True)
-        self.ui.label_result_rand_num.setFont(font_label_result_rand_num)
+        self.ui.groupBox_3.setEnabled(False)
+        self.ui.groupBox_3.hide()
 
         self.setWindowIcon(QIcon(f"{proverka_path_dir_icon('img_app')}main_app.ico"))
         self.ui.pushButton_clear.setIcon(QIcon(f"{proverka_path_dir_icon('img_app')}clear.png"))
+        self.ui.pushButton_clear_2.setIcon(QIcon(f"{proverka_path_dir_icon('img_app')}clear.png"))
 
         logger_init('app')
 
@@ -37,22 +37,15 @@ class MainWindow(QMainWindow):
 
         self.ui.pushButton_rand_elem.clicked.connect(self.btn_random_element)
         self.ui.pushButton_rand_charact.clicked.connect(self.btn_random_character)
+        self.ui.pushButton_rand_squad.clicked.connect(self.btn_random_squad)
         self.ui.pushButton_clear.clicked.connect(self.btn_clear_labels)
+        self.ui.pushButton_clear_2.clicked.connect(self.btn_clear_labels)
         self.ui.pushButton_download_data.clicked.connect(self.download_datas)
-        self.ui.lineEdit_last_border_num.textChanged.connect(self.random_number)
         self.ui.pushButton_timer.clicked.connect(self.timer)
         self.ui.pushButton_exit.clicked.connect(self.exit_app)
 
-    def random_number(self):
-        last_border_num = self.ui.lineEdit_last_border_num.text()
-
-        try:
-            last_border_num = int(last_border_num)
-
-            self.ui.label_result_rand_num.setText(str(randint(1, last_border_num)))
-
-        except:
-            self.ui.label_result_rand_num.setText('-')
+        self.ui.radioButton_rand_elem_charact.toggled.connect(lambda: self.btn_state(self.ui.radioButton_rand_elem_charact))
+        self.ui.radioButton_rand_squad.toggled.connect(lambda: self.btn_state(self.ui.radioButton_rand_squad))
 
     def timer(self):
         self.hide()
@@ -96,7 +89,7 @@ class MainWindow(QMainWindow):
         self.ui.label_img_charact.setStyleSheet(self.change_border_color_label_with_elem(''))
 
     def btn_random_character(self):
-        path_dir_element_characters = proverka_or_create_dir_data(self.path_to_data,
+        path_dir_element_characters = proverka_or_create_dir_data(self.path_dir_elements_character,
                                                                   self.random_element[:self.random_element.rindex('.')],
                                                                   '')
 
@@ -109,46 +102,97 @@ class MainWindow(QMainWindow):
         self.ui.label_img_charact.setPixmap(pixmap)
         self.ui.label_img_charact.setStyleSheet(self.change_border_color_label_with_elem(self.random_element[:self.random_element.rindex('.')]))
 
+    def btn_random_squad(self):
+        dict_element_and_characters = {}
+
+        for elem in self.list_element_img:
+            path_dir_element_characters = proverka_or_create_dir_data(self.path_dir_elements_character,
+                                                                      elem[:elem.rindex('.')],
+                                                                      '')
+            dict_element_and_characters[elem[:elem.rindex('.')]] = listdir(path_dir_element_characters)
+
+        for num_lab in range(1, 5):
+            random_element = choice(self.list_element_img)
+            random_element = random_element[:random_element.rindex('.')]
+
+            path_dir_rand_elem_with_charact = proverka_or_create_dir_data(self.path_dir_elements_character,
+                                                                          random_element,
+                                                                          '')
+
+            list_characters_in_elem = dict_element_and_characters.get(random_element)
+
+            random_charact = list_characters_in_elem.pop(randrange(len(list_characters_in_elem)))
+
+            dict_element_and_characters[random_element] = list_characters_in_elem
+
+            pixmap = QPixmap(f'{path_dir_rand_elem_with_charact + random_charact}')
+
+            eval(f"self.ui.label_img_charact_squad_{str(num_lab)}.setPixmap(QPixmap(pixmap))")
+            eval(f"self.ui.label_img_charact_squad_{str(num_lab)}.setStyleSheet(self.change_border_color_label_with_elem(random_element))")
+            eval(f"self.ui.label_name_charact_squad_{str(num_lab)}.setText(random_charact[:random_charact.rindex('.')].title())")
+            eval(f"self.ui.label_name_charact_squad_{str(num_lab)}.setStyleSheet(self.change_border_color_label_with_elem(random_element))")
+
+    def btn_state(self, btn):
+        if btn.isChecked() and btn.objectName() == "radioButton_rand_elem_charact":
+            self.setFixedWidth(360)
+            self.setFixedHeight(383)
+
+            self.ui.groupBox_2.setEnabled(True)
+            self.ui.groupBox_2.show()
+
+            self.ui.groupBox_3.setEnabled(False)
+            self.ui.groupBox_3.hide()
+
+        if btn.isChecked() and btn.objectName() == "radioButton_rand_squad":
+            self.setFixedWidth(748)
+            self.setFixedHeight(514)
+
+            self.ui.groupBox_3.setEnabled(True)
+            self.ui.groupBox_3.show()
+
+            self.ui.groupBox_2.setEnabled(False)
+            self.ui.groupBox_2.hide()
+
     def change_border_color_label_with_elem(self, element):
         if element == 'anemo':
-            return 'border: 2px solid #37dba4;'
+            return 'border: 2px solid #37dba4; color: #37dba4;'
         elif element == 'cryo':
-            return 'border: 1px solid #65e1ea;'
+            return 'border: 1px solid #65e1ea; color: #65e1ea;'
         elif element == 'dendro':
-            return 'border: 1px solid #8ac500;'
+            return 'border: 1px solid #8ac500; color: #8ac500;'
         elif element == 'electro':
-            return 'border: 1px solid #c97bfe;'
+            return 'border: 1px solid #c97bfe; color: #c97bfe;'
         elif element == 'geo':
-            return 'border: 1px solid #f8a300;'
+            return 'border: 1px solid #f8a300; color: #f8a300;'
         elif element == 'hydro':
-            return 'border: 1px solid #08e4ff;'
+            return 'border: 1px solid #08e4ff; color: #08e4ff;'
         elif element == 'pyro':
-            return 'border: 1px solid #ef5f02;'
+            return 'border: 1px solid #ef5f02; color: #ef5f02;'
         else:
             return 'border: none;'
 
     def reload_exist(self):
         self.exists_dir('Data')
-        self.path_pulling()
-
-    def path_pulling(self):
-        if path_to_dir('Data') and len(self.list_dirs_in_data) == 8:
-            self.path_to_data = proverka_or_create_dir_data()
-            self.path_dir_element = proverka_or_create_dir_data(self.path_to_data, 'element', '')
-
-            self.list_element_img = listdir(self.path_dir_element)
 
     def exists_dir(self, name_dir):
         path_dir = proverka_path_dir_icon(name_dir)
         self.list_dirs_in_data = listdir(path_dir)
 
-        if path_to_dir(name_dir) and len(self.list_dirs_in_data) == 8:
+        if path_to_dir(name_dir) and len(self.list_dirs_in_data) != 0:
+            self.path_to_data = proverka_or_create_dir_data()
+            self.path_dir_element = proverka_or_create_dir_data(self.path_to_data, 'element', '')
+            self.path_dir_elements_character = proverka_or_create_dir_data(self.path_to_data, 'elements_characters', '')
+
+            self.list_element_img = listdir(self.path_dir_element)
+
             self.ui.label_info_folder.setText("Дані знайдено.")
             self.ui.label_info_folder.setStyleSheet("color: #00FF00;")
 
             self.ui.pushButton_rand_charact.setEnabled(True)
             self.ui.pushButton_rand_elem.setEnabled(True)
             self.ui.pushButton_clear.setEnabled(True)
+            self.ui.pushButton_clear_2.setEnabled(True)
+            self.ui.pushButton_rand_squad.setEnabled(True)
 
             self.ui.pushButton_download_data.setText("Оновити\nдані")
 
@@ -157,8 +201,10 @@ class MainWindow(QMainWindow):
             self.ui.label_info_folder.setStyleSheet("color: #FF0000;")
 
             self.ui.pushButton_rand_charact.setEnabled(False)
+            self.ui.pushButton_rand_squad.setEnabled(False)
             self.ui.pushButton_rand_elem.setEnabled(False)
             self.ui.pushButton_clear.setEnabled(False)
+            self.ui.pushButton_clear_2.setEnabled(False)
 
             self.ui.pushButton_download_data.setText("Завантажити\nдані")
 
@@ -168,9 +214,14 @@ class MainWindow(QMainWindow):
         self.ui.label_img_element.clear()
         self.ui.label_img_element.setStyleSheet(self.change_border_color_label_with_elem(''))
 
+        for num_lab in range(1, 5):
+            eval(f"self.ui.label_img_charact_squad_{str(num_lab)}.clear()")
+            eval(f"self.ui.label_name_charact_squad_{str(num_lab)}.clear()")
+            eval(f"self.ui.label_img_charact_squad_{str(num_lab)}.setStyleSheet(self.change_border_color_label_with_elem(''))")
+            eval(f"self.ui.label_name_charact_squad_{str(num_lab)}.setStyleSheet(self.change_border_color_label_with_elem(''))")
+
     def btn_app_exit(self):
         self.exit_app()
 
     def exit_app(self):
-        QApplication.instance().quit
-        exit()
+        QApplication.instance().quit()

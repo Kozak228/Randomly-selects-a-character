@@ -7,7 +7,7 @@ def logger_init(name):
     format ='%(asctime)s | %(name)s : %(lineno)s | %(levelname)s | %(message)s'
     logger.setLevel(WARNING)
 
-    fh = FileHandler(filename = f'{proverka_path_dir_icon("log")}logger_errors.log', encoding = 'utf-8')
+    fh = FileHandler(filename = f'{proverka_path_dir_icon("log")}log_errors.log', encoding = 'utf-8')
     fh.setFormatter(Formatter(format))
     fh.setLevel(WARNING)
 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>360</width>
-    <height>345</height>
+    <width>748</width>
+    <height>514</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -59,6 +59,13 @@ QLineEdit{
 }
 QLineEdit:focus{
 	border: 1px dashed #800000;
+}
+
+QRadioButton{
+	color: #FF7F50;
+}
+QRadioButton:hover{
+	color: #00FF00;
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -122,7 +129,7 @@ QLineEdit:focus{
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>140</y>
+      <y>180</y>
       <width>342</width>
       <height>200</height>
      </rect>
@@ -271,114 +278,372 @@ QLineEdit:focus{
      <string>Таймер</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QGroupBox" name="groupBox_3">
     <property name="geometry">
      <rect>
-      <x>15</x>
-      <y>100</y>
-      <width>212</width>
-      <height>26</height>
+      <x>10</x>
+      <y>179</y>
+      <width>733</width>
+      <height>330</height>
      </rect>
     </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-      <weight>50</weight>
-      <bold>false</bold>
-     </font>
+    <property name="title">
+     <string>Рандомний вибір загону</string>
     </property>
-    <property name="styleSheet">
-     <string notr="true">color: #7FFF00;</string>
-    </property>
-    <property name="text">
-     <string>Рандомне число між кордонами (1,</string>
-    </property>
+    <widget class="QPushButton" name="pushButton_rand_squad">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>101</width>
+       <height>37</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Зарандомити
+загін</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_clear_2">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>22</y>
+       <width>48</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../Img_app/clear.png</normaloff>../Img_app/clear.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>31</width>
+       <height>76</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>70</y>
+       <width>90</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>15</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: #ADFF2F</string>
+     </property>
+     <property name="text">
+      <string>1 загін</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>380</x>
+       <y>70</y>
+       <width>90</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>15</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: #ADFF2F</string>
+     </property>
+     <property name="text">
+      <string>2 загін</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_img_charact_squad_1">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>105</y>
+       <width>170</width>
+       <height>131</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_img_charact_squad_2">
+     <property name="geometry">
+      <rect>
+       <x>187</x>
+       <y>105</y>
+       <width>170</width>
+       <height>131</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_img_charact_squad_3">
+     <property name="geometry">
+      <rect>
+       <x>379</x>
+       <y>105</y>
+       <width>170</width>
+       <height>131</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_img_charact_squad_4">
+     <property name="geometry">
+      <rect>
+       <x>557</x>
+       <y>105</y>
+       <width>170</width>
+       <height>131</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_name_charact_squad_1">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>240</y>
+       <width>170</width>
+       <height>83</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>15</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: #ADFF2F</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_name_charact_squad_2">
+     <property name="geometry">
+      <rect>
+       <x>187</x>
+       <y>241</y>
+       <width>170</width>
+       <height>83</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>15</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: #ADFF2F</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_name_charact_squad_3">
+     <property name="geometry">
+      <rect>
+       <x>379</x>
+       <y>241</y>
+       <width>170</width>
+       <height>83</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>15</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: #ADFF2F</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_name_charact_squad_4">
+     <property name="geometry">
+      <rect>
+       <x>558</x>
+       <y>241</y>
+       <width>170</width>
+       <height>83</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>15</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: #ADFF2F</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_last_border_num">
+   <widget class="QGroupBox" name="groupBox_4">
     <property name="geometry">
      <rect>
-      <x>234</x>
-      <y>104</y>
-      <width>28</width>
-      <height>17</height>
+      <x>10</x>
+      <y>90</y>
+      <width>216</width>
+      <height>83</height>
      </rect>
     </property>
-    <property name="font">
-     <font>
-      <pointsize>9</pointsize>
-     </font>
-    </property>
-    <property name="text">
+    <property name="title">
      <string/>
     </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-    <property name="placeholderText">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>272</x>
-      <y>101</y>
-      <width>26</width>
-      <height>19</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>23</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>= </string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>265</x>
-      <y>100</y>
-      <width>7</width>
-      <height>26</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: #7FFF00;</string>
-    </property>
-    <property name="text">
-     <string>)</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_result_rand_num">
-    <property name="geometry">
-     <rect>
-      <x>299</x>
-      <y>100</y>
-      <width>40</width>
-      <height>26</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: #7FFF00;</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
+    <widget class="QRadioButton" name="radioButton_rand_squad">
+     <property name="geometry">
+      <rect>
+       <x>7</x>
+       <y>47</y>
+       <width>179</width>
+       <height>33</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Зарандомити загін (для гри
+з друзями)</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="radioButton_rand_elem_charact">
+     <property name="geometry">
+      <rect>
+       <x>7</x>
+       <y>5</y>
+       <width>179</width>
+       <height>33</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Зарандомити один
+елемент і персонажа</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
    </widget>
   </widget>
  </widget>
