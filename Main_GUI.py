@@ -2,7 +2,7 @@ from os import listdir
 from random import choice, randrange
 
 from GUI.main_GUI import Ui_MainWindow
-from PyQt6.QtWidgets import QApplication, QMainWindow, QMessageBox
+from PyQt6.QtWidgets import QApplication, QMainWindow
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QIcon, QPixmap
 

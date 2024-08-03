@@ -1,6 +1,7 @@
 from time import sleep
 from threading import Thread
 from logging import getLogger
+from os import listdir
 
 from GUI.download_GUI import Ui_MainWindow
 from PyQt6.QtWidgets import QMainWindow, QApplication
@@ -26,6 +27,7 @@ class Parser_and_download(QMainWindow):
         self.thread_pars = Thread(target=self.pars_links)
 
         self.name_file = 'data'
+        self.name_dir = 'Data'
 
         self.ui.pushButton_pars_and_download_data.clicked.connect(self.download_data)
 
@@ -39,10 +41,6 @@ class Parser_and_download(QMainWindow):
 
         self.ui.progressBar.setValue(0)
         self.cnt_img = 0
-
-        path_main_dir = proverka_path_dir_icon('Data')
-
-        self.delete_dir_or_file(path_main_dir)
 
         self.ui.label_download_info.setText('Збiр даних....')
         QApplication.processEvents()
@@ -60,18 +58,20 @@ class Parser_and_download(QMainWindow):
 
         self.ui.progressBar.setMaximum(self.cnt_total_dates)
 
-        path_secondary_dir = proverka_or_create_dir_data(path_main_dir, 'element',"")
+        if self.dict_all_dates.get('links_on_img_element'):
+            path_secondary_dir = proverka_or_create_dir_data(path_main_dir, 'element', "")
 
-        self.download_image(path_secondary_dir, self.dict_all_dates.get('links_on_img_element'))
+            self.download_image(path_secondary_dir, self.dict_all_dates.get('links_on_img_element'))
 
         path_secondary_beside_dir = proverka_or_create_dir_data(path_main_dir, 'elements_characters', "")
 
         for characters_with_elem in range(len(self.list_names_element)):
+            if self.dict_all_dates.get(self.list_names_element[characters_with_elem]):
+                path_secondary_dir = proverka_or_create_dir_data(path_secondary_beside_dir,
+                                                                 self.list_names_element[characters_with_elem],
+                                                                 "")
 
-            path_secondary_dir = proverka_or_create_dir_data(path_secondary_beside_dir, self.list_names_element[characters_with_elem],
-                                                             "")
-
-            self.download_image(path_secondary_dir, self.dict_all_dates.get(self.list_names_element[characters_with_elem]))
+                self.download_image(path_secondary_dir, self.dict_all_dates.get(self.list_names_element[characters_with_elem]))
 
         self.delete_dir_or_file(path_main_dir, self.name_file)
 
@@ -104,16 +104,49 @@ class Parser_and_download(QMainWindow):
         else:
             remove_dir_or_file(path, name_file)
 
+    def check_data_in_PC(self):
+        path_dir = proverka_path_dir_icon(self.name_dir)
+        list_dirs_in_data = listdir(path_dir)
+        list_all_data_in_PC = []
+
+        if path_to_dir(self.name_dir) and len(list_dirs_in_data) != 0:
+            path_dir_element = proverka_or_create_dir_data(proverka_or_create_dir_data(), 'element', '')
+            path_dir_elements_character = proverka_or_create_dir_data(proverka_or_create_dir_data(), 'elements_characters', '')
+
+            list_element_img = listdir(path_dir_element)
+
+            list_all_data_in_PC.extend(list_element_img)
+
+            for elem in list_element_img:
+                list_all_data_in_PC.extend(listdir(proverka_or_create_dir_data(path_dir_elements_character,
+                                                                               elem[:elem.rindex('.')], '')))
+
+        return list_all_data_in_PC
+
     def read_file_dates(self, path_dir, name_file):
+        list_all_data_in_PC = self.check_data_in_PC()
         self.dict_all_dates = read_file(name_file, path_dir)
 
         self.list_names_element = self.dict_all_dates.get('names_element')
 
-        temp_dict = self.dict_all_dates.copy()
+        self.dict_all_dates.pop('names_element')
 
-        temp_dict.pop('names_element')
+        if list_all_data_in_PC:
+            new_dict_all_dates = {}
+            list_keys = list(self.dict_all_dates.keys())
 
-        temp_dict_values = list(temp_dict.values())
+            for key in list_keys:
+                list_links_in_key = self.dict_all_dates.get(key)
+
+                new_list_links = []
+                for link in list_links_in_key:
+                    if link[link.rindex('/') + 1:] not in list_all_data_in_PC:
+                        new_list_links.append(link)
+
+                new_dict_all_dates[key] = new_list_links
+            self.dict_all_dates = new_dict_all_dates
+
+        temp_dict_values = list(self.dict_all_dates.values())
 
         self.cnt_total_dates = 0
 
