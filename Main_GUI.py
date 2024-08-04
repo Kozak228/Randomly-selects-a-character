@@ -1,5 +1,6 @@
 from os import listdir
 from random import choice, randrange
+from time import sleep
 
 from GUI.main_GUI import Ui_MainWindow
 from PyQt6.QtWidgets import QApplication, QMainWindow
@@ -135,6 +136,10 @@ class MainWindow(QMainWindow):
             eval(f"self.ui.label_name_charact_squad_{str(num_lab)}.setText(self.dict_all_name_characters.get(random_charact[:random_charact.rindex('.')],\
                                                                                          random_charact[:random_charact.rindex('.')]))")
             eval(f"self.ui.label_name_charact_squad_{str(num_lab)}.setStyleSheet(self.change_border_color_label_with_elem(random_element))")
+
+            QApplication.processEvents()
+            sleep(2)
+
     def btn_state(self, btn):
         if btn.isChecked() and btn.objectName() == "radioButton_rand_elem_charact":
             self.setFixedWidth(360)
