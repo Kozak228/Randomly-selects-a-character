@@ -40,7 +40,7 @@ class Parser_and_download(QMainWindow):
         self.thread.start()
 
     def download_data(self):
-        self.ui.label_download_info.setText('Будьласка, зачекайте.\nЗбiр даних....')
+        self.ui.label_download_info.setText('Будь ласка, зачекайте.\nЗбiр даних....')
         QApplication.processEvents()
 
         self.parser_dates = Parser_data('https://paimon.moe/characters')
