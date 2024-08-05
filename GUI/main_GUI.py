@@ -60,10 +60,10 @@ class Ui_MainWindow(object):
 "}\n"
 "\n"
 "QRadioButton{\n"
-"    color: #FF7F50;\n"
+"    color: #00FA9A;\n"
 "}\n"
 "QRadioButton:hover{\n"
-"    color: #00FF00;\n"
+"    color: #FF4500;\n"
 "}")
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -80,11 +80,19 @@ class Ui_MainWindow(object):
         self.label_info_folder.setWordWrap(True)
         self.label_info_folder.setObjectName("label_info_folder")
         self.pushButton_download_data = QtWidgets.QPushButton(parent=self.groupBox)
-        self.pushButton_download_data.setGeometry(QtCore.QRect(121, 30, 91, 41))
+        self.pushButton_download_data.setGeometry(QtCore.QRect(121, 34, 91, 41))
         font = QtGui.QFont()
         font.setPointSize(9)
         self.pushButton_download_data.setFont(font)
         self.pushButton_download_data.setObjectName("pushButton_download_data")
+        self.pushButton_FAQ_download = QtWidgets.QPushButton(parent=self.groupBox)
+        self.pushButton_FAQ_download.setGeometry(QtCore.QRect(175, 4, 37, 28))
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        font.setBold(True)
+        font.setWeight(75)
+        self.pushButton_FAQ_download.setFont(font)
+        self.pushButton_FAQ_download.setObjectName("pushButton_FAQ_download")
         self.groupBox_2 = QtWidgets.QGroupBox(parent=self.centralwidget)
         self.groupBox_2.setGeometry(QtCore.QRect(10, 180, 342, 285))
         self.groupBox_2.setObjectName("groupBox_2")
@@ -288,6 +296,7 @@ class Ui_MainWindow(object):
         self.groupBox.setTitle(_translate("MainWindow", "Інформація про папку"))
         self.pushButton_download_data.setText(_translate("MainWindow", "Завантажити\n"
 "дані"))
+        self.pushButton_FAQ_download.setText(_translate("MainWindow", "?"))
         self.groupBox_2.setTitle(_translate("MainWindow", "Рандомний елемент та персонаж"))
         self.pushButton_rand_elem.setText(_translate("MainWindow", "Зарандомити\n"
 "елемент "))
@@ -295,12 +304,12 @@ class Ui_MainWindow(object):
 "персонажа"))
         self.pushButton_exit.setText(_translate("MainWindow", "Вихід"))
         self.pushButton_timer.setText(_translate("MainWindow", "Таймер"))
-        self.groupBox_3.setTitle(_translate("MainWindow", "Рандомний вибір загону"))
+        self.groupBox_3.setTitle(_translate("MainWindow", "Рандомний вибір персонажів для коопа"))
         self.pushButton_rand_squad.setText(_translate("MainWindow", "Зарандомити\n"
-"загін"))
-        self.label.setText(_translate("MainWindow", "1 загін"))
-        self.label_2.setText(_translate("MainWindow", "2 загін"))
-        self.radioButton_rand_squad.setText(_translate("MainWindow", "Зарандомити загін (для гри\n"
-"з друзями)"))
+"персонажів"))
+        self.label.setText(_translate("MainWindow", "1 гравець"))
+        self.label_2.setText(_translate("MainWindow", "2 гравець"))
+        self.radioButton_rand_squad.setText(_translate("MainWindow", "Зарандомити персонажів\n"
+"для коопу"))
         self.radioButton_rand_elem_charact.setText(_translate("MainWindow", "Зарандомити один\n"
 "елемент і персонажа"))

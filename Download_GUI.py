@@ -1,7 +1,7 @@
 from time import sleep
-from threading import Thread
 from logging import getLogger
 from os import listdir
+from threading import Thread
 
 from GUI.download_GUI import Ui_MainWindow
 from PyQt6.QtWidgets import QMainWindow, QApplication
@@ -24,46 +24,41 @@ class Parser_and_download(QMainWindow):
 
         self.logger = getLogger('app.download')
 
-        self.thread_pars = Thread(target=self.pars_links)
-
         self.name_file = 'data'
         self.name_dir = 'Data'
+        self.path_main_dir = proverka_or_create_dir_data()
 
-        self.ui.pushButton_pars_and_download_data.clicked.connect(self.download_data)
+        self.ui.pushButton_pars_and_download_data.clicked.connect(self.start_download)
 
-    def pars_links(self):
-        parser_data = Parser_data('https://paimon.moe/characters')
-
-        parser_data.pars_data()
-    def download_data(self):
+    def start_download(self):
         self.ui.pushButton_pars_and_download_data.setEnabled(False)
         self.ui.pushButton_exit.setEnabled(False)
-
         self.ui.progressBar.setValue(0)
         self.cnt_img = 0
 
-        self.ui.label_download_info.setText('Збiр даних....')
+        self.thread = Thread(target=self.download_data)
+        self.thread.start()
+
+    def download_data(self):
+        self.ui.label_download_info.setText('Будьласка, зачекайте.\nЗбiр даних....')
         QApplication.processEvents()
 
-        try:
-            self.thread_pars.start()
-            self.thread_pars.join()
+        self.parser_dates = Parser_data('https://paimon.moe/characters')
+        self.parser_dates.finished.connect(self.on_thread_finished_parser)
+        self.parser_dates.start()
+        self.parser_dates.wait()
 
-        except RuntimeError as ex:
-            self.logger.error(ex)
-
-        path_main_dir = proverka_or_create_dir_data()
-
-        self.read_file_dates(path_main_dir, self.name_file)
+    def on_thread_finished_parser(self):
+        self.read_file_dates(self.path_main_dir, self.name_file)
 
         self.ui.progressBar.setMaximum(self.cnt_total_dates)
 
         if self.dict_all_dates.get('links_on_img_element'):
-            path_secondary_dir = proverka_or_create_dir_data(path_main_dir, 'element', "")
+            path_secondary_dir = proverka_or_create_dir_data(self.path_main_dir, 'element', "")
 
             self.download_image(path_secondary_dir, self.dict_all_dates.get('links_on_img_element'))
 
-        path_secondary_beside_dir = proverka_or_create_dir_data(path_main_dir, 'elements_characters', "")
+        path_secondary_beside_dir = proverka_or_create_dir_data(self.path_main_dir, 'elements_characters', "")
 
         for characters_with_elem in range(len(self.list_names_element)):
             if self.dict_all_dates.get(self.list_names_element[characters_with_elem]):
@@ -71,9 +66,10 @@ class Parser_and_download(QMainWindow):
                                                                  self.list_names_element[characters_with_elem],
                                                                  "")
 
-                self.download_image(path_secondary_dir, self.dict_all_dates.get(self.list_names_element[characters_with_elem]))
+                self.download_image(path_secondary_dir,
+                                    self.dict_all_dates.get(self.list_names_element[characters_with_elem]))
 
-        self.delete_dir_or_file(path_main_dir, self.name_file)
+        self.delete_dir_or_file(self.path_main_dir, self.name_file)
 
         self.ui.pushButton_exit.setEnabled(True)
 

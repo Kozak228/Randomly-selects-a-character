@@ -3,7 +3,7 @@ from random import choice, randrange
 from time import sleep
 
 from GUI.main_GUI import Ui_MainWindow
-from PyQt6.QtWidgets import QApplication, QMainWindow
+from PyQt6.QtWidgets import QApplication, QMainWindow, QMessageBox
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QIcon, QPixmap
 
@@ -45,6 +45,7 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_download_data.clicked.connect(self.download_datas)
         self.ui.pushButton_timer.clicked.connect(self.timer)
         self.ui.pushButton_exit.clicked.connect(self.exit_app)
+        self.ui.pushButton_FAQ_download.clicked.connect(self.btn_FAQ_download)
 
         self.ui.radioButton_rand_elem_charact.toggled.connect(lambda: self.btn_state(self.ui.radioButton_rand_elem_charact))
         self.ui.radioButton_rand_squad.toggled.connect(lambda: self.btn_state(self.ui.radioButton_rand_squad))
@@ -138,7 +139,7 @@ class MainWindow(QMainWindow):
             eval(f"self.ui.label_name_charact_squad_{str(num_lab)}.setStyleSheet(self.change_border_color_label_with_elem(random_element))")
 
             QApplication.processEvents()
-            sleep(2)
+            sleep(1.5)
 
     def btn_state(self, btn):
         if btn.isChecked() and btn.objectName() == "radioButton_rand_elem_charact":
@@ -234,6 +235,20 @@ class MainWindow(QMainWindow):
             eval(f"self.ui.label_name_charact_squad_{str(num_lab)}.clear()")
             eval(f"self.ui.label_img_charact_squad_{str(num_lab)}.setStyleSheet(self.change_border_color_label_with_elem(''))")
             eval(f"self.ui.label_name_charact_squad_{str(num_lab)}.setStyleSheet(self.change_border_color_label_with_elem(''))")
+
+    def btn_FAQ_download(self):
+        self.msg("Information", 'Якщо в геншині вийшли нові персонажі, Ви можете натиснути на відповідну кнопку і програма оновить дані.')
+
+    def msg(self, reson, message):
+        msg = QMessageBox()
+
+        if reson == "Information":
+            msg.setWindowTitle(reson)
+            msg.setText(message)
+            msg.setIcon(QMessageBox.Icon.Information)
+            msg.setWindowFlags(Qt.WindowType.CoverWindow)
+            msg.setStandardButtons(QMessageBox.StandardButton.Ok)
+            msg.exec()
 
     def btn_app_exit(self):
         self.exit_app()
